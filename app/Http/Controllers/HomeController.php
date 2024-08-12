@@ -15,8 +15,9 @@ class HomeController extends Controller
         if (auth::check()) {
             $posts = Post::simplePaginate(6);
         } else {
-            $posts = DB::table('posts')->limit(10)->get();   // --- either use this or above
-            // $posts = Post::limit(10);//->simplePaginate(6);
+            // $posts = DB::table('posts')->limit(8)->get();
+            $posts = Post::simplePaginate(9); //->limit(8)->get();
+            // $posts = Post::limit(10);//->simplePaginate(6);               // --- either use this or above
         }
 
         foreach ($posts as $post) {
@@ -26,18 +27,27 @@ class HomeController extends Controller
             $body = $post->post;
         }
 
+
         return view('dashboard', [
             'id'=>$id,
-            'posts' => $posts,
+            'posts' => $posts,//Post::latest()->filter(request(['search']))->get(),
             'title'=>$title,
             'slug'=>$slug,
             'body'=>$body
         ]);
     }
-   
+
     public function logout()
     {
         auth()->logout();
         return redirect('/');
     }
+
+    public function search()
+    {
+        dd(request('search'));
+    }
+
+
+
 }

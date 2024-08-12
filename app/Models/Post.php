@@ -9,14 +9,21 @@ class Post extends Model
 {
     use HasFactory;
 
-    // protected $fillable=[
-    //     'user_id',
-    //     'title',
-    //     'slug',
-    //     'posts',
-    // ];
 
     protected $guarded = [];
 
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['search'] ?? false, fn($query, $search) =>
+            $query
+            ->where('title', 'like', '%'. $search .'%' )
+            ->orWhere('post', 'like', '%'. $search .'%' ));
+    }
+    
+
+    // public function category()
+    // {
+    //     return $this->belongsTo(Category::class);
+    // }
 
 }

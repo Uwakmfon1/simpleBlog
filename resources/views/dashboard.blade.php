@@ -51,9 +51,31 @@
 
     </header>
 
+    @if(auth()->guest())
+    <div></div>
+@else
+       {{-- <div class="grid h-screen place-items-center">
+
+        </div> --}}
+
+        <form action="#" method="GET">
+            <h2>Simple Blog init</h2>
+            <input
+                type="text"
+                placeholder="search blog posts"
+                name="search"
+                value="{{ request('search') }}"
+                style="height: 50px; width: 200px">
+            {{-- <input type="text" placeholder="change me" class="bg-red-400 text-white"> --}}
+            {{-- <h2>Fill the above form</h2> --}}
+        </form>
+
+@endif
+
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="ml-16 flex flex-wrap gap-7  lg:gap-8 text-white">
+            <div class="ml-16 flex flex-wrap gap-7 lg:gap-8 text-white">
                 @foreach ($posts as $post)
                     <div class="bg-white fit-content w-80 p-6 rounded">
                         <a href="{{ url('/post/' . $post->id) }}" class="text-black">
@@ -65,14 +87,15 @@
                 @endforeach
             </div>
 
-            <br>
-            <br>
-            <br>
-            <br>
 
+
+            <br>
+            <br>
+            <br>
+            <br>
             @if(auth()->guest())
 
-            <div>Nothing here</div>
+            <h3>Nothing here, <a href="{{ route('register') }}" class="text-purple-900">sign up for more interesting stories</a></h3>
             @else
             <div class="d-flex justify-content-center">
                 {!! $posts->links() !!}

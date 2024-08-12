@@ -32,6 +32,12 @@
             </label>
         </div>
 
+        <div class="block mt-4">
+            {{-- <label for="dont_have_account" class="inline-flex items-center"> --}}
+                <a href="{{ url('/register') }}" class="ms-2 text-sm text-gray-600">{{ __("Don't have an account? Sign Up") }}</span>
+            {{-- </label> --}}
+        </div>
+
         <div class="flex items-center justify-end mt-4">
             @if (Route::has('password.request'))
                 <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">

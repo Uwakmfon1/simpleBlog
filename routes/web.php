@@ -22,5 +22,5 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/post/{id}',[PostController::class,'show']); //always keep wildcards below to avoid overwriting other
 
-// Route::get('/')
+Route::get('/search', [HomeController::class, 'search'])->name('search');
 require __DIR__.'/auth.php';
