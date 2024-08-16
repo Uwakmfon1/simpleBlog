@@ -16,11 +16,16 @@
                     </div>
 
                 </x-slot>
-
-                {{-- <a href="{{ url('/dashboard') }}"
-                                class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-                                Dashboard
-                            </a> --}}
+                <form action="#" method="GET">
+                    <h2>Simple Blog init</h2>
+                    <input
+                        type="text"
+                        placeholder="search blog posts"
+                        name="search"
+                        value="{{ request('search') }}"
+                        style="height: 50px; width: 200px">
+                </form>
+          
             @else
                 <x-slot name="header">
                     <div class="flex justify-between">
@@ -54,21 +59,8 @@
     @if(auth()->guest())
     <div></div>
 @else
-       {{-- <div class="grid h-screen place-items-center">
 
-        </div> --}}
 
-        <form action="#" method="GET">
-            <h2>Simple Blog init</h2>
-            <input
-                type="text"
-                placeholder="search blog posts"
-                name="search"
-                value="{{ request('search') }}"
-                style="height: 50px; width: 200px">
-            {{-- <input type="text" placeholder="change me" class="bg-red-400 text-white"> --}}
-            {{-- <h2>Fill the above form</h2> --}}
-        </form>
 
 @endif
 

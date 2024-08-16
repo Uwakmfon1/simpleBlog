@@ -40,7 +40,14 @@ class PostController extends Controller
     {
         $post = Post::where('id', $id)->first();
         $post['post'];
-        return view('post',['post'=>$post['post']]);
+        $title = $post['title'];
+        
+        return view('post',
+        [
+            'post'=>$post['post'],
+            'title'=>$title]
+
+        );
     }
 
     /**

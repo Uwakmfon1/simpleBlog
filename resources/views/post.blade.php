@@ -84,6 +84,7 @@
                     <br><br>
 
                     <main class="container px-3">
+                        <h1 class="text-black font-bold text-lg">{{ $title }}</h1> <br>
 
                         <div class="grid lg:grid-cols-3 gap-7  lg:gap-8 text-white">
                           <h2 class="text-black">{{ $post }}</h2>

@@ -11,13 +11,10 @@ class HomeController extends Controller
 {
     public function index()
     {
-
         if (auth::check()) {
-            $posts = Post::simplePaginate(6);
+            return redirect('/auth');
         } else {
-            // $posts = DB::table('posts')->limit(8)->get();
-            $posts = Post::simplePaginate(9); //->limit(8)->get();
-            // $posts = Post::limit(10);//->simplePaginate(6);               // --- either use this or above
+            $posts = Post::simplePaginate(9);
         }
 
         foreach ($posts as $post) {
@@ -43,10 +40,19 @@ class HomeController extends Controller
         return redirect('/');
     }
 
-    public function search()
+    public function auth(Request $request)
     {
-        dd(request('search'));
+        $filters = $request->only(['search']);
+        $posts = Post::filter($filters)->paginate(9);    //latest()->filter(request(['search']))->paginate(6);
+
+
+
+        return view('authView', [
+            'posts' => $posts,
+        ]);
+
     }
+
 
 
 

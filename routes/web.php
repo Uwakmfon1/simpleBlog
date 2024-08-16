@@ -10,9 +10,11 @@ use App\Http\Controllers\ProfileController;
 Route::get('/',[HomeController::class,'index']);
 
 Route::get('/logout',[HomeController::class,'logout']);
+
 Route::get('/dashboard', [HomeController::class,'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/post/{id}',[PostController::class,'show']);
+Route::get('/auth', [HomeController::class, 'auth']);
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
