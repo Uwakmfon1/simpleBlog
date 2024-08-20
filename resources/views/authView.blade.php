@@ -11,21 +11,16 @@
             </h2>
         </div>
     </x-slot>
-
-<br>
+    <br>
     <form action="#" method="GET" style="margin-left: 25px;">
         @csrf
         <input type="text" placeholder="search" name="search" value="{{ request('search') }}"
             style="height: 40px; width: 20%;">
     </form>
 
-
-
     <div class="py-12 bg-[{{ URL('images/bg1.jpg') }}]">
-        {{-- <img src="{{ URL('images/bg1.jpg') }}" alt="footer"> --}}
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            {{-- <h1>{{ dump($posts->count()) }}</h1> --}}
-            @if($posts->count())
+            @if ($posts->count())
 
                 <div class="ml-16 flex flex-wrap gap-7 lg:gap-8 text-white">
                     @foreach ($posts as $post)
@@ -40,21 +35,11 @@
                 </div>
                 <br>
                 {{ $posts->links() }}
-                {{-- <p>{{ $posts->append(request()->query())->links() }}</p> --}}
             @else
                 <div>
                     <h2>{{ request('search') }} Not Found</h2>
                 </div>
-
             @endif
-            {{-- @php
-           dump(count($posts)); //count how many posts has been returned
-           @endphp --}}
-
-            {{-- <div class="d-flex justify-content-center">
-                {!! $posts->render() !!}
-            </div> --}}
-
         </div>
     </div>
 </x-app-layout>

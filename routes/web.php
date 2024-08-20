@@ -21,6 +21,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/create',[PostController::class,'create'])->middleware(['auth', 'verified']);
+
+Route::post('/store',[PostController::class,'store']);
 
 Route::get('/post/{id}',[PostController::class,'show']); //always keep wildcards below to avoid overwriting other
 

@@ -15,15 +15,14 @@ class Post extends Model
 
     public function scopeFilter($query, array $filters)
     {
+        //Filter function for post. Used as "->filter()"
         $query->when($filters['search'] ?? false, fn($query, $search) =>
             $query
             ->where('title','LIKE', '%'.$search.'%' )
             ->orWhere('slug','LIKE','%'.$search.'%')
             ->orWhere('post','LIKE', '%'.$search.'%'));
-            // ->paginate(9);
+
             return $query;
-            // ->where('title','LIKE', '%'.strval(request('search')).'%' )
-            // ->orWhere('post','LIKE', '%'.strval(request('search')).'%'));
     }
 
 

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
 {
@@ -22,7 +24,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+
+        return view('createPost');
     }
 
     /**
@@ -30,18 +33,57 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+
+        $validator = Validator::make($request->all(),[
+            'title'=>'required|string|min:5|max:255',
+            'newPost'=>'required|string'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('/create')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        $authUser = Auth::user();
+
+
+
+        $post = new Post;
+        $post->user_id = Auth::user()->id;
+        $post->title = trim($request->input('title'));
+        $post->post = trim($request->input('newPost'));
+        $post->slug = $this->getSentenceSlug($post->post);
+        $post->save();
+        return redirect('auth')->with('message','Post saved successfully');
     }
+
+
+
+    protected function getSentenceSlug($sentence)
+    {
+         // Break the sentence into words
+    $words = explode(' ', $sentence);
+
+    // Get only the first 10 words
+    $firstTenWords = array_slice($words, 0, 10);
+
+    // Join the words back into a string
+    return implode(' ', $firstTenWords);
+    }
+
 
     /**
      * Display the specified resource.
      */
+
     public function show(Request $request, string $id)
     {
         $post = Post::where('id', $id)->first();
         $post['post'];
         $title = $post['title'];
-        
+
         return view('post',
         [
             'post'=>$post['post'],

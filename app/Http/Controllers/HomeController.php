@@ -27,7 +27,7 @@ class HomeController extends Controller
 
         return view('dashboard', [
             'id'=>$id,
-            'posts' => $posts,//Post::latest()->filter(request(['search']))->get(),
+            'posts' => $posts, //Post::latest()->filter(request(['search']))->get(),
             'title'=>$title,
             'slug'=>$slug,
             'body'=>$body
@@ -39,13 +39,12 @@ class HomeController extends Controller
         auth()->logout();
         return redirect('/');
     }
+    
 
     public function auth(Request $request)
     {
         $filters = $request->only(['search']);
         $posts = Post::filter($filters)->paginate(9);    //latest()->filter(request(['search']))->paginate(6);
-
-
 
         return view('authView', [
             'posts' => $posts,
