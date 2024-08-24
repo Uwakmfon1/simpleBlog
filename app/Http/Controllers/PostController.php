@@ -63,7 +63,7 @@ class PostController extends Controller
 
     protected function getSentenceSlug($sentence)
     {
-         // Break the sentence into words
+    // Break the sentence into words
     $words = explode(' ', $sentence);
 
     // Get only the first 10 words

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+
 
 class HomeController extends Controller
 {
@@ -14,7 +16,7 @@ class HomeController extends Controller
         if (auth::check()) {
             return redirect('/auth');
         } else {
-            $posts = Post::simplePaginate(9);
+            $posts = Post::simplePaginate(12);
         }
 
         foreach ($posts as $post) {
@@ -24,10 +26,9 @@ class HomeController extends Controller
             $body = $post->post;
         }
 
-
         return view('dashboard', [
             'id'=>$id,
-            'posts' => $posts, //Post::latest()->filter(request(['search']))->get(),
+            'posts' => $posts,
             'title'=>$title,
             'slug'=>$slug,
             'body'=>$body
@@ -39,20 +40,35 @@ class HomeController extends Controller
         auth()->logout();
         return redirect('/');
     }
-    
 
     public function auth(Request $request)
     {
         $filters = $request->only(['search']);
-        $posts = Post::filter($filters)->paginate(9);    //latest()->filter(request(['search']))->paginate(6);
+        $posts = Post::filter($filters)->paginate(9);
+        $auth_user = Auth::user()->id;
+        $postFromUSer = Post::where('user_id',$auth_user)->get();
+        $totalUsers = User::whereNot('admin',1)->get();
 
+
+
+        //if admin logged in
+        if(Auth::user()->admin==1){
+            $getPosts = $this->getYourPosts($filters);
+            return view('admin/auth/dashboard',
+            ['postFromUser'=>$postFromUSer, 'getPosts'=>$getPosts,'totalUsers'=> $totalUsers,'posts'=>$posts]);
+        }
+
+        //  else
         return view('authView', [
             'posts' => $posts,
         ]);
-
     }
 
-
+    protected function getYourPosts($filters)
+    {
+        $posts = Post::where('user_id',Auth::user()->id)->filter($filters)->get();
+        return $posts;
+    }
 
 
 }

@@ -11,6 +11,8 @@ Route::get('/',[HomeController::class,'index']);
 
 Route::get('/logout',[HomeController::class,'logout']);
 
+Route::get('admin/dashboard');
+
 Route::get('/dashboard', [HomeController::class,'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/auth', [HomeController::class, 'auth']);

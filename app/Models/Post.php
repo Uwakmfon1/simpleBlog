@@ -21,7 +21,7 @@ class Post extends Model
             ->where('title','LIKE', '%'.$search.'%' )
             ->orWhere('slug','LIKE','%'.$search.'%')
             ->orWhere('post','LIKE', '%'.$search.'%'));
-
+            
             return $query;
     }
 
