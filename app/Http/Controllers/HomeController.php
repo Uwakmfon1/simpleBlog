@@ -52,7 +52,7 @@ class HomeController extends Controller
 
 
         //if admin logged in
-        if(Auth::user()->admin==1){
+        if(Auth::user()->admin == 1){
             $getPosts = $this->getYourPosts($filters);
             return view('admin/auth/dashboard',
             ['postFromUser'=>$postFromUSer, 'getPosts'=>$getPosts,'totalUsers'=> $totalUsers,'posts'=>$posts]);
@@ -62,6 +62,12 @@ class HomeController extends Controller
         return view('authView', [
             'posts' => $posts,
         ]);
+    }
+
+    public function fetchTotalUsers()
+    {
+        $totalUsers = User::whereNot('admin',1)->get();
+        return view('admin/auth/signedUsers',['totalUsers'=>$totalUsers]);
     }
 
     protected function getYourPosts($filters)

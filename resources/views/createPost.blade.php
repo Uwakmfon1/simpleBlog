@@ -1,27 +1,31 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
+    <title>Laravel</title>
 
-        <!-- Styles -->
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 
-        @vite('resources/css/app.css')
-   </head>
-    <body class="font-sans antialiased ">
-        <div class="bg-gray-50 text-black/50">
+    <!-- Styles -->
+
+    @vite('resources/css/app.css')
+</head>
+
+<body class="font-sans antialiased ">
+    <div class="bg-gray-50 text-black/50">
 
 
-                    <header class=" bg-green-800 grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
-                        <div class="flex lg:justify-center lg:col-start-2">
-                            <svg class="h-12 w-auto text-white lg:h-16 lg:text-[#FF2D20]" viewBox="0 0 62 65" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M61.8548 14.6253C61.8778 14.7102 61.8895 14.7978 61.8897 14.8858V28.5615C61.8898 28.737 61.8434 28.9095 61.7554 29.0614C61.6675
+        <header class=" bg-green-800 grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
+            <div class="flex lg:justify-center lg:col-start-2">
+                <svg class="h-12 w-auto text-white lg:h-16 lg:text-[#FF2D20]" viewBox="0 0 62 65" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M61.8548 14.6253C61.8778 14.7102 61.8895 14.7978 61.8897 14.8858V28.5615C61.8898 28.737 61.8434 28.9095 61.7554 29.0614C61.6675
                                 29.2132 61.5409 29.3392 61.3887 29.4265L49.9104 36.0351V49.1337C49.9104 49.4902 49.7209 49.8192 49.4118 49.9987L25.4519 63.7916C25.3971
 
                                 63.8227 25.3372 63.8427 25.2774 63.8639C25.255 63.8714 25.2338 63.8851 25.2101 63.8913C25.0426 63.9354 24.8666 63.9354 24.6991 63.8913C24.6716
@@ -47,74 +51,59 @@
                                          8.10527L12.9752 2.36177H12.9777ZM18.1678 38.2138L23.9574 34.8809V9.83281L19.7657 12.2459L13.9749 15.5801V40.6281L18.1678 38.2138ZM48.9133
                                           9.14105L38.9344 14.8858L48.9133 20.6305L58.8909 14.8846L48.9133 9.14105ZM47.9149 22.3593L42.124 19.0252L37.9323 16.6121V27.9844L43.7219
                                           31.3174L47.9149 33.7317V22.3593ZM24.9533 47.987L39.59 39.631L46.9065 35.4555L36.9352 29.7145L25.4544 36.3242L14.9907 42.3482L24.9533 47.987Z"
-                                           fill="currentColor"/></svg>
-                        </div>
-                        @if (Route::has('login'))
-                            <nav class="-mx-3 flex flex-1 justify-end">
-                                @auth
-                                    <a
-                                        href="{{ url('/dashboard') }}"
-                                        class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                                    >
-                                        Dashboard
-                                    </a>
-                                @else
-                                    <a
-                                        href="{{ route('login') }}"
-                                        class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                                    >
-                                        Log in
-                                    </a>
+                        fill="currentColor" />
+                </svg>
+            </div>
+            @if (Route::has('login') && Auth::user()->admin == 1)
+                <nav class="-mx-3 flex flex-1 justify-end">
+                    @auth
+                        <a href="{{ url('/dashboard') }}"
+                            class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
+                            Dashboard
+                        </a>
+                    @else
+                        <a href="{{ route('login') }}"
+                            class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
+                            Log in
+                        </a>
 
-                                    @if (Route::has('register'))
-                                        <a
-                                            href="{{ route('register') }}"
-                                            class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                                        >
-                                            Register
-                                        </a>
-                                    @endif
-                                @endauth
-                            </nav>
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}"
+                                class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
+                                Register
+                            </a>
                         @endif
-                    </header>
+                    @endauth
+                </nav>
+            @endif
+        </header>
 
-                    <br><br>
+        <br><br>
 
-                    <main class="container px-3">
-
-                        <h1 class="text-lg font-bold text-black">Write a Post</h1><br>
-
-                       <form action="store" method="POST">
-                            @csrf
-                            <h1 class="font-bold text-xl-center">Title of Blog</h1>
-                            <input type="text" name="title"><br><br>
-                            <h2 class="font-bold text-xl">Body</h2><br>
-                            <textarea name="newPost" id="newPost" cols="30" rows="10"></textarea>
-                            <button type="submit" class="bg-blue-400 text-white px-4 py-2 rounded">Post</button>
-                       </form>
-                        <br><br><br><br>
-
-                        {{-- <h2>Comments</h2>
-                        <section>
-                            <article class="flex bg-gray-200 p-6 m-2">
-                                <div>
-                                    <img src="https://i.pravatar.cc/100" alt="">
-                                </div>
-                                <div>
-                                    <header>
-                                        <h3>John Doe</h3>
-                                        <p>Posted
-                                            <time>2 Months ago</time>
-                                        </p>
-                                    </header>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                        Magni ad beatae molestiae autem a. Expedita natus consequatur laborum totam animi.</p>
-                                </div>
-                            </article>
-                        </section> --}}
-                    </main>
+        <main class="container px-3">
 
 
-    </body>
+            <h1 class="text-lg font-bold text-black">Write a Post</h1><br>
+            <form action="store" method="POST" enctype="multipart/form-data" class="ml-4 border-blue-900 rounded">
+                @csrf
+                <h1 class="font-bold text-xl-center">Title of Blog</h1>
+                <input type="text" name="title"><br><br>
+                <h2 class="font-bold text-xl">Body</h2><br>
+                <h2>Choose Image for the post</h2>
+                <input type="file" id="photo" name="photo">
+                @error('file')
+                    <div class="text-red-600">The Image Field is required</div>
+                @enderror
+                <br><br>
+                <h2>Write your Post</h2>
+                <textarea name="newPost" id="newPost" cols="30" rows="10"></textarea><br>
+                <button type="submit" class="bg-blue-400 text-white px-4 py-2 rounded">Post</button>
+            </form>
+
+            <br><br><br><br>
+        </main>
+
+
+</body>
+
 </html>

@@ -25,7 +25,9 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/create',[PostController::class,'create'])->middleware(['auth', 'verified']);
 
-Route::post('/store',[PostController::class,'store']);
+Route::get('fetchTotalUsers',[HomeController::class,'fetchTotalUsers'])->name('fetchTotalUsers');
+
+Route::post('/store',[PostController::class,'store'])->name('store');
 
 Route::get('/post/{id}',[PostController::class,'show']); //always keep wildcards below to avoid overwriting other
 

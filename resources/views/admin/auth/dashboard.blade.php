@@ -20,7 +20,7 @@
                 <div class="card bg-warning text-white mb-4">
                     <div class="card-body text-xl font-bold">Signed Up Users</div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
-                        <div><a href="#" class="font-bold"> {{ count( $totalUsers ) }}</a></div>
+                        <div><a href="{{ route('fetchTotalUsers') }}" class="font-bold"> {{ count( $totalUsers ) }}</a></div>
 
                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                     </div>
