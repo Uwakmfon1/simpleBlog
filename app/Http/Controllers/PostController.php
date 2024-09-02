@@ -38,47 +38,40 @@ class PostController extends Controller
         $validator = Validator::make($request->all(),[
             'title'=>'required|string|min:5|max:255',
             'newPost'=>'required|string',
-            'file'=> 'required|file|mimes:jpg,png,svg,gif|max:3072'
+            'image'=> 'nullable|file|mimes:jpg,jpeg,webp,png,svg,gif|max:3072'
         ]);
 
 
 
         if ($validator->fails()) {
             return redirect('/create')
-                        ->withErrors($validator)
-                        ->withInput();
+            ->withErrors($validator)
+            ->withInput();
         }
 
         $authUser = Auth::user();
 
-        // For saving the image to the folder
-        $requestData = $request->all();
-        $fileName = time().$request->file('photo')->getClientOriginalName();
-        $path = $request->file('photo')->storeAs('images', $fileName, 'public');
-        dd($path);
-        // $requestData["photo"] = '/storage/' . $path;
+        if($request->has("image"))
+        {
+            $file = $request->file('image');
+            $fileName = time().'.'.$file->getClientOriginalName();
+            // dd($fileName);
+            $path = "public/images";
+            $file->move($path,$fileName);
+        }
 
-
-        // if ($request->hasFile('file')) {
-        //     $file = $request->file('file');
-        //     $fileName = $file->getClientOriginalName();
-        //     // Process the file
-        //     dd($fileName);
-        // } else {
-        //     return "No file was uploaded.";
-        // }
         // die();
-
 
         $post = new Post;
         $post->user_id = Auth::user()->id;
         $post->title = trim($request->input('title'));
         $post->post = trim($request->input('newPost'));
         $post->slug = $this->getSentenceSlug($post->post);
-        // $post->image = $requestData;
+        $post->image = $path.$fileName;
         $post->save();
         return redirect('auth')->with('message','Post saved successfully');
-    }
+
+}
 
 
 

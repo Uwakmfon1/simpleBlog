@@ -9,18 +9,21 @@
                 <p class="mt-2  font-bold">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</p>
                 <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 
                             <li><a class="dropdown-item" href="#!">Settings</a></li>
                             <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-                            <li><hr class="dropdown-divider" /></li>
+                            <li>
+                                <hr class="dropdown-divider" />
+                            </li>
 
                             <li>
                                 <form method="POST" action="{{ route('logout') }}" class="ml-5 text-bold">
                                     @csrf
                                     <a class="nav-item dropdown" href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
+                                        onclick="event.preventDefault();
                                             this.closest('form').submit();">
                                         {{ __('Log Out') }}
                                     </a>
@@ -30,8 +33,6 @@
                     </li>
                 </ul>
             </div>
-
-                 
 
         </div>
     </x-slot>
@@ -50,6 +51,7 @@
                     @foreach ($posts as $post)
                         <div class="bg-white fit-content w-80 p-6 rounded">
                             <a href="{{ url('/post/' . $post->id) }}" class="text-black">
+                                <img src="{{ asset('public/images/1724935622.114.jpg') }}" alt="img">
                                 <h2 class="font-bold text-xl font-mono">{{ strtoupper($post->title) }}</h2>
                                 <p class="pt-5">{{ $post->slug }}</p>
                             </a>

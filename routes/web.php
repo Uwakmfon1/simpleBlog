@@ -7,11 +7,9 @@ use App\Http\Controllers\ProfileController;
 
 
 
-Route::get('/',[HomeController::class,'index']);
+Route::get('/',[HomeController::class,'index'])->middleware('checkSession')->name('index');
 
 Route::get('/logout',[HomeController::class,'logout']);
-
-Route::get('admin/dashboard');
 
 Route::get('/dashboard', [HomeController::class,'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -23,11 +21,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/create',[PostController::class,'create'])->middleware(['auth', 'verified']);
+Route::get('/create',[PostController::class,'create'])->middleware(['auth', 'verified'])->name('create');
 
 Route::get('fetchTotalUsers',[HomeController::class,'fetchTotalUsers'])->name('fetchTotalUsers');
 
-Route::post('/store',[PostController::class,'store'])->name('store');
+Route::resource('/store',PostController::class);//->name('store');
 
 Route::get('/post/{id}',[PostController::class,'show']); //always keep wildcards below to avoid overwriting other
 

@@ -3,6 +3,17 @@
 @section('title', 'Dashboard')
 
 @section('content')
+<style>
+
+table, th, td {
+  border: 1px solid black;
+}
+
+table{
+    margin-left: 5em;
+}
+
+</style>
     <div class="container-fluid px-4">
         <h1 class="mt-4 text-3xl font-bold">Dashboard</h1>
         <br>
