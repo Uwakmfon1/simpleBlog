@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\User;
+use App\Events\NewMessage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -35,9 +36,11 @@ class HomeController extends Controller
         ]);
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
-        auth()->logout();
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
         return redirect('/');
     }
 
@@ -69,6 +72,18 @@ class HomeController extends Controller
         $totalUsers = User::whereNot('admin',1)->get();
         return view('admin/auth/signedUsers',['totalUsers'=>$totalUsers]);
     }
+
+
+
+
+    public function sendMessage(Request $request)
+    {
+        $message = $request->input('message');
+        event(new NewMessage($message));
+        return response()->json(['status' => 'Message sent!']);
+    }
+
+
 
     protected function getYourPosts($filters)
     {

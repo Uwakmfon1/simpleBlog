@@ -22,7 +22,6 @@
     <div class="py-12 bg-[{{ URL('images/bg1.jpg') }}]">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             @if ($posts->count())
-
                 <div class="ml-16 flex flex-wrap gap-7 lg:gap-8 text-white">
                     @foreach ($posts as $post)
                         <div class="bg-white fit-content w-80 p-6 rounded">

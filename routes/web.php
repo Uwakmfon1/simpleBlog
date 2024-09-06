@@ -13,7 +13,8 @@ Route::get('/logout',[HomeController::class,'logout']);
 
 Route::get('/dashboard', [HomeController::class,'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/auth', [HomeController::class, 'auth']);
+Route::get('/auth', [HomeController::class, 'auth'])->middleware(['auth','verified'])->name('auth');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

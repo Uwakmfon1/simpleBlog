@@ -18,12 +18,7 @@ class checkSession
     public function handle(Request $request, Closure $next): Response
     {
         if (Auth::check()) {
-            // Check if the user is authenticated and session expired
-            // if(session()->has('last_activity') && (time() - session()->get('last_activity') > config('session.lifetime') * 60)){
-            //     Auth::logout(); //Logout the user
-            //     session()->flush(); //clear the session out
-            //     return redirect()->route('index'); //redirect to login page
-            // }
+
             if (Session::has('last_activity')) {
                 $last_activity = Session::get('last_activity');
                 $session_lifetime = config('session.lifetime') * 60;
@@ -35,7 +30,7 @@ class checkSession
                 }
             };
 
-        	  // session(['last_activity' => time()]); // update the last activity time
+            // session(['last_activity' => time()]); // update the last activity time
         }
         return $next($request);
     }
